@@ -3,7 +3,18 @@ using namespace std;
 
 void solve() {
     int x; cin >> x;
-    cout << factor(x) << '\n';
+    int res = 0;
+    for (int i = 1; i * i <= x; ++i) {
+        if (x % i == 0) {
+            if (i * i == x) {
+                res++;
+            }
+            else {
+                res += 2;
+            }
+        }
+    }
+    cout << res << '\n';
 }
 
 int main() {

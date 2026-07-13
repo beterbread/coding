@@ -1,20 +1,16 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-// Sieve of Eratosthenesm O(n * log(log(n))
-// For finding all primes in a range
-
+// O(n * log(log(n))
 int main() {
     int n = 1000000; 
-    vector<bool> isPrime(n + 1, true);
-    isPrime[0] = isPrime[1] = false;
-    for (int i = 2; i <= n; i++) {
-        if (isPrime[i] && (long long)i * i <= n) {
+    vector<bool> sieve(n + 1, true);
+    sieve[0] = sieve[1] = false;
+    for (int i = 2; i * i <= n; ++i) {
+        if (sieve[i]) {
             for (int j = i * i; j <= n; j += i) {
-                isPrime[j] = false;
+                sieve[j] = false;
             }
         }
     }
-
-    return 0;
 }
