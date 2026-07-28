@@ -14,19 +14,30 @@ typedef unsigned long long ull;
 #define FORD(i, n) for (int i = (n) - 1; i >= 0; --i)   
 
 void solve() {
-    int n,m,k; cin >> n >> m >> k;
-    vector<int> a(n),b(m);
+    int n; cin >> n;
+    vector<int> a(n),b(n);
     FOR(i,n) cin >> a[i];
-    FOR(i,m) cin >> b[i];
-    sort(all(a));
-    sort(all(b));
-    if (a[0] < b[m-1]) swap(a[0],b[m-1]);
-    if (!(k&1)) {
-        sort(all(a));
-        sort(all(b));
-        swap(a[n-1],b[0]);
+    FOR(i,n) cin >> b[i];
+    int m; cin >> m;
+    vector<int> d(m);
+    FOR(i,m) cin >> d[i];
+    multiset<int> joe(all(a));
+    multiset<int> set(all(b));
+    int overwrite = 0;
+    FORD(i,m) {
+        auto it = set.find(d[i]);
+        if (it != set.end()) {
+            overwrite++;
+            set.erase(it);
+        }
+        else {
+            if (overwrite == 0) {
+                cout << "NO\n";
+                return;
+            }
+        }
     }
-    cout << accumulate(all(a),0LL) << '\n';
+    cout << (set.empty() ? "YES" : "NO") << '\n';
 }
 
 int main() 

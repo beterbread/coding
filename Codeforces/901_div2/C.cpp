@@ -15,24 +15,17 @@ typedef unsigned long long ull;
 
 void solve() {
     ll n,m; cin >> n >> m;
-    vector<ll> joe(30);
-    FOR(i,30) joe[i] = (1LL << i);
-    unordered_set<ll> set;
+    n %= m;
     ll res = 0;
-    while (1) {
+    int ops = 0;
+    while (n) {
+        res += n;
+        n *= 2;
         n %= m;
-        if (n == 0) break;
-        if (set.find(n) != set.end()) {
+        ops++;
+        if (ops > 1000) {
             res = -1;
             break;
-        }
-        set.insert(n);
-        FOR(i,30) {
-            if (joe[i] * n >= m) {
-                res += i*n;
-                n *= joe[i];
-                break;
-            }
         }
     }
     cout << res << '\n';

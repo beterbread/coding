@@ -13,25 +13,24 @@ typedef unsigned long long ull;
 #define FOR(i, n) for (int i = 0; i < (n); ++i)           
 #define FORD(i, n) for (int i = (n) - 1; i >= 0; --i)   
 
+unordered_set<int> res;
 void solve() {
-    int n,m,k; cin >> n >> m >> k;
-    vector<int> a(n),b(m);
-    FOR(i,n) cin >> a[i];
-    FOR(i,m) cin >> b[i];
-    sort(all(a));
-    sort(all(b));
-    if (a[0] < b[m-1]) swap(a[0],b[m-1]);
-    if (!(k&1)) {
-        sort(all(a));
-        sort(all(b));
-        swap(a[n-1],b[0]);
-    }
-    cout << accumulate(all(a),0LL) << '\n';
+    int n; cin >> n;
+    cout << (res.find(n) != res.end() ? "YES" : "NO") << '\n';
 }
 
 int main() 
 { 
     cin.tie(0)->sync_with_stdio(0);
+    for (int k = 2; k <= sqrt(1e6); ++k) {
+        int cur = 1 + k;
+        int add = k * k;
+        while (cur + add <= 1e6) {
+            cur += add;
+            res.insert(cur);
+            add *= k;
+        }
+    }
     int t; cin >> t;
     while (t--) solve();
     return 0; 
